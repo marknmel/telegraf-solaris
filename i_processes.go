@@ -35,6 +35,7 @@ func getEmptyFields() map[string]interface{} {
 		"zombies":       int64(0),
 		"stopped":       int64(0),
 		"running":       int64(0),
+		"runq":	         int64(0),
 		"sleeping":      int64(0),
 		"total":         int64(0),
 		"unknown":       int64(0),
@@ -68,6 +69,8 @@ func (p *Processes) gatherFromPS(fields map[string]interface{}) error {
 			fields["stopped"] = fields["stopped"].(int64) + int64(1)
 		case "O":
 			fields["running"] = fields["running"].(int64) + int64(1)
+		case "R":
+                        fields["runq"] = fields["runq"].(int64) + int64(1)
 		case "S":
 			fields["sleeping"] = fields["sleeping"].(int64) + int64(1)
 		case "I":
